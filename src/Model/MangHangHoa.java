@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+import jdk.nashorn.internal.codegen.CompilerConstants;
 
 /**
  *
@@ -16,7 +17,7 @@ import java.util.Scanner;
  */
 public class MangHangHoa {
 
-    private ArrayList<HangHoa> list = new ArrayList<>();
+     ArrayList<HangHoa> list = new ArrayList<>();
 
     public void insertNew(HangHoa a) {
         list.add(a);
@@ -103,19 +104,29 @@ public class MangHangHoa {
         }
         System.out.println("Sum of Handmade " + sumItem);
     }
-
+    public void getdatafromFile(){
+        ArrayList<HangThuCong> list1 = new ArrayList<>();
+        list1 = Controller.CommodityFileManager.readFileHangThuCongs("hangThucong.txt");
+         int i = 0;
+         for (HangThuCong htc : list1) {
+             System.out.println(i+1+"."+htc.output());
+        }
+    
+    }
     public static void main(String[] args) throws ParseException {
         MangHangHoa m = new MangHangHoa();
-        m.inputList();
-        m.displayList("list of data at this project ");
-        Scanner kb = new Scanner(System.in);
-        System.out.println("input id at this keyBoard ");
-        String id = kb.nextLine();
-        m.findByCommodityId(id);
-         System.out.println("input id at this keyBoard ");
-        String idd = kb.nextLine();
-        m.deleteByCommodityId(idd);
-        m.getSumMoneyComodityElectric();
-        m.getSumMoneyComodityHandmade();
+        m.getdatafromFile();
+        
+//        m.inputList();
+//        m.displayList("list of data at this project ");
+//        Scanner kb = new Scanner(System.in);
+//        System.out.println("input id at this keyBoard ");
+//        String id = kb.nextLine();
+//        m.findByCommodityId(id);
+//         System.out.println("input id at this keyBoard ");
+//        String idd = kb.nextLine();
+//        m.deleteByCommodityId(idd);
+//        m.getSumMoneyComodityElectric();
+//        m.getSumMoneyComodityHandmade();
     }
 }

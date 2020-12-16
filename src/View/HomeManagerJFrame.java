@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.CommodityFileManager;
 import Controller.DaoCommodity;
 import Model.HangDienMay;
 import Model.HangThuCong;
@@ -12,7 +13,10 @@ import Model.IviewData;
 import Model.MangHangHoa;
 import java.awt.Event;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -369,6 +373,22 @@ public class HomeManagerJFrame extends javax.swing.JFrame implements IviewData{
 
     private void btnThemTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemTCActionPerformed
         // TODO add your handling code here:
+        JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getDefaultDirectory());
+        j.setDialogTitle("choose File at here ");
+        j.setMultiSelectionEnabled(false);
+        FileNameExtensionFilter restrict = new FileNameExtensionFilter("Only .txt files", "txt");
+        j.addChoosableFileFilter(restrict);
+        int  r =j.showDialog(this, "Chon File");
+        
+        if(r == JFileChooser.APPROVE_OPTION){
+            String file = j.getSelectedFile().getAbsolutePath();
+            int choose = JOptionPane.showConfirmDialog(this, "Ban co muon xuat file sang Jtable");
+            if(choose == JOptionPane.YES_OPTION){
+               listThuCongs =   CommodityFileManager.readFileHangThuCongs(file);
+                showData(listThuCongs, modelThuCong);
+            }
+        }
+        
         
     }//GEN-LAST:event_btnThemTCActionPerformed
 
